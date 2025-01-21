@@ -1,0 +1,4 @@
+javac -d out --module com.admin --module-source-path .
+java --module-path out -m com.admin/com.admin.users.AddUser
+
+______

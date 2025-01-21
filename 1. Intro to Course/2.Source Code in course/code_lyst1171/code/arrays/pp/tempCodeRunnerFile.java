@@ -1,0 +1,1 @@
+rix[][] = new int[size]
