@@ -14,6 +14,7 @@ import org.json.JSONException;
 import com.codeWithProjects.ecom.dto.UserDto;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +31,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 public class AuthController {
 
 private final AuthenticationManager authenticationManager;
@@ -43,7 +43,20 @@ private final UserRepository userRepository;
 
 private final JwtUtil jwtUtil;
 
-public static final String TOKEN_PREFIX="Bearer ";
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserDetailsService userDetailsService,
+                          UserRepository userRepository,
+                          AuthServiceImpl authService,
+                          JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+        this.authService = authService;
+        this.jwtUtil = jwtUtil;
+    }
+
+    public static final String TOKEN_PREFIX="Bearer ";
 public static final String HEADER_STRING="Authorization";
 @PostMapping("/authenticate")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException, JSONException {

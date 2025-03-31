@@ -6,9 +6,10 @@ public class AuthenticationRequest {
     private String password;
 
     public String getUsername() {
-
+     return  this.username;
     }
 
-    public Object getPassword() {
+    public String getPassword() {
+    return this.password;
     }
 }
