@@ -1,0 +1,9 @@
+network create bootapp
+docker run -d --name mysqldb -p 3306:3306 --network=bootapp -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=electronic_store -v ./data:/var/lib/mysql mysql:8
+
+docker run -it --name storeapp -p 9090:9090 --network=bootapp -e MYSQL_HOST=mysqldb -e MYSQL_PORT=3306 store
+
+docker login
+
+docker tag localimage  username/image
+docker push username/image
