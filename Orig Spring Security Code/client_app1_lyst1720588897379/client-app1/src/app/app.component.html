@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to Angular client Application</h1>
+      <button (click)="loadProducts()">Load Products</button>
+
+      @for( i of products;track i){
+
+      <h1>{{ i.title }}</h1>
+      <p>{{ i.description }}</p>
+      <button>Price {{ i.price }}</button>
+
+      }
+    </div>
+  </body>
+</html>
