@@ -3,13 +3,18 @@ package com.lcwd.electronic.store.controllers;
 import com.lcwd.electronic.store.dtos.*;
 import com.lcwd.electronic.store.services.FileService;
 import com.lcwd.electronic.store.services.ProductService;
+import com.lcwd.electronic.store.services.impl.FileServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +27,7 @@ import java.io.InputStream;
 @RequestMapping("/products")
 public class ProductController {
 
-
+    private Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
     @Autowired
     private ProductService productService;
 
@@ -35,6 +40,10 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Authenticated user: " + authentication.getName());
+        logger.info("Authenticated user: " + authentication.getName());
+//        System.out.println("Authenticated user: " + authentication.getClass());// 👈 Logs the username
         ProductDto createdProduct = productService.create(productDto);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }

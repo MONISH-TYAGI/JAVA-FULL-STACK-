@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -36,5 +38,11 @@ public class UserDto {
 
     @ImageNameValid
     private String imageName;
+
+
+    private List<RoleDto> roles;
+
+//    @Pattern
+//    Custom validator
 
 }
